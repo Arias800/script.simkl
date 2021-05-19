@@ -43,7 +43,7 @@ class Player(xbmc.Player):
                "properties": ["showtitle", "title", "season", "episode", "file", "tvshowid", "imdbnumber","genre" ,"year","uniqueid"]
             },
             "id": 1})))["result"]["item"]
-        is_tv = _data["tvshowid"] != -1 and _data["season"] > 0 and _data["episode"] > 0
+        is_tv = _data["season"] > 0 and _data["episode"] > 0
         _data["ids"] = {}
 
         if 'id' not in _data:
@@ -71,8 +71,8 @@ class Player(xbmc.Player):
                 if _data["uniqueid"].get("imdb"): _data["ids"]["imdb"] = _data["uniqueid"]["imdb"]
 
         log("Full: {0}".format(_data))
-        if not _data["ids"] and _data['file']:
-            _r = self._api.detect_by_file(filename=_data['file'])
+        if not _data["ids"] and _data['title']:
+            _r = self._api.detect_by_file(filename=_data['title'])
             if isinstance(_r, dict) and "type" in _r:
                 if _r["type"] == "episode":
                     # TESTED
