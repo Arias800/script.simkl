@@ -24,7 +24,8 @@ if __name__ == "__main__":
 
     api = api_simkl.Simkl()
     monitor = events.Monitor(api=api)
-    player = engine.Player(api=api)
+    if not xbmc.getCondVisibility('Pvr.IsPlayingTv'):
+        player = engine.Player(api=api)
 
     while not monitor.abortRequested():
         if monitor.waitForAbort(90):
